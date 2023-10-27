@@ -134,7 +134,7 @@ func New(
 	ingestersRing ring.ReadRing,
 	overrides Limits,
 	registerer prometheus.Registerer,
-	log log.Logger,
+	logger log.Logger,
 ) (*Distributor, error) {
 	factory := cfg.factory
 	if factory == nil {
@@ -169,13 +169,13 @@ func New(
 
 	d := &Distributor{
 		cfg:                   cfg,
-		log:                   log,
+		log:                   logger,
 		clientCfg:             clientCfg,
 		tenantConfigs:         configs,
 		tenantsRetention:      retention.NewTenantsRetention(overrides),
 		ingestersRing:         ingestersRing,
 		validator:             validator,
-		pool:                  clientpool.NewPool("ingester", clientCfg.PoolConfig, ingestersRing, factory, log),
+		pool:                  clientpool.NewPool("ingester", clientCfg.PoolConfig, ingestersRing, factory, logger),
 		labelCache:            labelCache,
 		shardTracker:          NewShardTracker(),
 		healthyInstancesCount: atomic.NewUint32(0),
@@ -200,13 +200,13 @@ func New(
 			Name:      "stream_sharding_count",
 			Help:      "Total number of times the distributor has sharded streams",
 		}),
-		writeFailuresManager: writefailures.NewManager(log, registerer, cfg.WriteFailuresLogging, configs, "distributor"),
+		writeFailuresManager: writefailures.NewManager(logger, registerer, cfg.WriteFailuresLogging, configs, "distributor"),
 	}
 
 	if overrides.IngestionRateStrategy() == validation.GlobalIngestionRateStrategy {
 		d.rateLimitStrat = validation.GlobalIngestionRateStrategy
 
-		distributorsRing, distributorsLifecycler, err = newRingAndLifecycler(cfg.DistributorRing, d.healthyInstancesCount, log, registerer)
+		distributorsRing, distributorsLifecycler, err = newRingAndLifecycler(cfg.DistributorRing, d.healthyInstancesCount, logger, registerer)
 		if err != nil {
 			return nil, err
 		}
@@ -233,7 +233,7 @@ func New(
 			clientCfg.PoolConfig,
 			ingestersRing,
 			ring_client.PoolAddrFunc(internalFactory),
-			log,
+			logger,
 		),
 		overrides,
 		registerer,

@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	gokitlog "github.com/go-kit/log"
+
 	"github.com/grafana/loki/pkg/iter"
 	loghttp "github.com/grafana/loki/pkg/loghttp/legacy"
 	"github.com/grafana/loki/pkg/logproto"

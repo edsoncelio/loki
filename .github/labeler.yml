@@ -1,9 +1,0 @@
-type/docs:
-- 'docs/**/*'
-- 'operator/docs/*'
-sig/operator:
-- 'operator/**/*'
-kind/feature:
-- 'operator/docs/enhancements/*'
-area/helm:
-- 'production/helm/**/*'

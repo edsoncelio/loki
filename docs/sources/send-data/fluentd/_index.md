@@ -206,7 +206,7 @@ If using the GrafanaLab's hosted Loki, the username needs to be set to your inst
 All requests sent to Loki, a multi-tenant log storage platform, must include a tenant. For some installations the tenant will be set automatically by an authenticating proxy. Otherwise you can define a tenant to be passed through.
 The tenant can be any string value.
 
-The tenant field also supports placeholders, allowing it to dynamically change based on tag and record fields. Each placeholder must be added as a buffer chunk key. The following is an example of setting the tenant based on a Kubernetes pod label:
+The tenant field also supports placeholders, allowing it to dynamically change based on tag and record fields. Each placeholder must be added as a buffer chunk key. The following is an example of setting the tenant based on a Kubernetes Pod label:
 
 ```conf
 <match **>

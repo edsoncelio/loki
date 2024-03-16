@@ -1616,7 +1616,7 @@ One of the following `role` types can be configured to discover targets:
 #### `node`
 
 The `node` role discovers one target per cluster node with the address
-defaulting to the Kubelet's HTTP port.
+defaulting to the kubelet's HTTP port.
 
 The target address defaults to the first existing address of the Kubernetes
 node object in the address type order of `NodeInternalIP`, `NodeExternalIP`,
@@ -1663,13 +1663,13 @@ adding a port via relabeling.
 
 Available meta labels:
 
-- `__meta_kubernetes_namespace`: The namespace of the pod object.
-- `__meta_kubernetes_pod_name`: The name of the pod object.
-- `__meta_kubernetes_pod_ip`: The pod IP of the pod object.
-- `__meta_kubernetes_pod_label_<labelname>`: Each label from the pod object.
-- `__meta_kubernetes_pod_labelpresent_<labelname>`: `true`for each label from the pod object.
-- `__meta_kubernetes_pod_annotation_<annotationname>`: Each annotation from the pod object.
-- `__meta_kubernetes_pod_annotationpresent_<annotationname>`: `true` for each annotation from the pod object.
+- `__meta_kubernetes_namespace`: The namespace of the Pod object.
+- `__meta_kubernetes_pod_name`: The name of the Pod object.
+- `__meta_kubernetes_pod_ip`: The Pod IP of the Pod object.
+- `__meta_kubernetes_pod_label_<labelname>`: Each label from the Pod object.
+- `__meta_kubernetes_pod_labelpresent_<labelname>`: `true`for each label from the Pod object.
+- `__meta_kubernetes_pod_annotation_<annotationname>`: Each annotation from the Pod object.
+- `__meta_kubernetes_pod_annotationpresent_<annotationname>`: `true` for each annotation from the Pod object.
 - `__meta_kubernetes_pod_container_init`: `true` if the container is an [InitContainer](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
 - `__meta_kubernetes_pod_container_name`: Name of the container the target address points to.
 - `__meta_kubernetes_pod_container_port_name`: Name of the container port.
@@ -1678,17 +1678,17 @@ Available meta labels:
 - `__meta_kubernetes_pod_ready`: Set to `true` or `false` for the pod's ready state.
 - `__meta_kubernetes_pod_phase`: Set to `Pending`, `Running`, `Succeeded`, `Failed` or `Unknown`
   in the [lifecycle](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase).
-- `__meta_kubernetes_pod_node_name`: The name of the node the pod is scheduled onto.
-- `__meta_kubernetes_pod_host_ip`: The current host IP of the pod object.
-- `__meta_kubernetes_pod_uid`: The UID of the pod object.
-- `__meta_kubernetes_pod_controller_kind`: Object kind of the pod controller.
-- `__meta_kubernetes_pod_controller_name`: Name of the pod controller.
+- `__meta_kubernetes_pod_node_name`: The name of the node the Pod is scheduled onto.
+- `__meta_kubernetes_pod_host_ip`: The current host IP of the Pod object.
+- `__meta_kubernetes_pod_uid`: The UID of the Pod object.
+- `__meta_kubernetes_pod_controller_kind`: Object kind of the Pod controller.
+- `__meta_kubernetes_pod_controller_name`: Name of the Pod controller.
 
 #### `endpoints`
 
 The `endpoints` role discovers targets from listed endpoints of a service. For
 each endpoint address one target is discovered per port. If the endpoint is
-backed by a pod, all additional container ports of the pod, not bound to an
+backed by a Pod, all additional container ports of the Pod, not bound to an
 endpoint port, are discovered as targets as well.
 
 Available meta labels:
@@ -1705,7 +1705,7 @@ Available meta labels:
   - `__meta_kubernetes_endpoint_address_target_kind`: Kind of the endpoint address target.
   - `__meta_kubernetes_endpoint_address_target_name`: Name of the endpoint address target.
 - If the endpoints belong to a service, all labels of the `role: service` discovery are attached.
-- For all targets backed by a pod, all labels of the `role: pod` discovery are attached.
+- For all targets backed by a Pod, all labels of the `role: pod` discovery are attached.
 
 #### `ingress`
 

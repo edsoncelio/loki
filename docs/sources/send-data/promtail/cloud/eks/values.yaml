@@ -1,4 +1,4 @@
-## Affinity for pod assignment
+## Affinity for Pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
 affinity: {}
 
@@ -38,7 +38,7 @@ loki:
 
 nameOverride: promtail
 
-## Node labels for pod assignment
+## Node labels for Pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 nodeSelector: {}
 
@@ -111,7 +111,7 @@ serviceAccount:
   create: true
   name:
 
-## Tolerations for pod assignment
+## Tolerations for Pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations:
 - key: node-role.kubernetes.io/master

@@ -14,7 +14,7 @@ weight:  500
 At any point in time, there may be three processes working on a log file as shown in the image below.
 ![block_diagram](./logrotation-components.png)
 
-1. Appender - A writer that keeps appending to a log file. This can be your application or some system daemons like Syslog, Docker log driver or Kubelet, etc.
+1. Appender - A writer that keeps appending to a log file. This can be your application or some system daemons like Syslog, Docker log driver or `kubelet`, etc.
 2. Tailer - A reader that reads log lines as they are appended, for example, agents like Promtail.
 3. Log Rotator - A process that rotates the log file either based on time (for example, scheduled every day) or size (for example, a log file reached its maximum size).
 
@@ -47,7 +47,7 @@ Copy and Truncate(1) favors the `appender` as its descriptor for the original lo
 
 However, (1) has a serious problem when considering the `tailer`. There is a race between truncating the file and the `tailer` finishing reading that log file. Meaning, there is a high chance of the log rotation mechanism truncating the file `error.log` before the `tailer` reads everything from it.
 
-This is where Rename and Create(2) can help. Here, when the log file `error.log` is renamed to `error.log.1`, the `tailer` still holds the file descriptor of `error.log.1`. Therefore, it can continue reading the log file until it is completed. But that comes with the tradeoff: with (2), you have to signal the `appender` to reopen `error.log` (and `appender` should be able to reopen it). Otherwise, it would keep writing to `error.log.1` as the file descriptor won't change. The good news is that most of the popular `appender` solutions (for example, Syslog, Kubelet, Docker log driver) support reopening log files when they are renamed.
+This is where Rename and Create(2) can help. Here, when the log file `error.log` is renamed to `error.log.1`, the `tailer` still holds the file descriptor of `error.log.1`. Therefore, it can continue reading the log file until it is completed. But that comes with the tradeoff: with (2), you have to signal the `appender` to reopen `error.log` (and `appender` should be able to reopen it). Otherwise, it would keep writing to `error.log.1` as the file descriptor won't change. The good news is that most of the popular `appender` solutions (for example, Syslog, `kubelet`, Docker log driver) support reopening log files when they are renamed.
 
 We recommend Rename and Create(2) as that is the method which works well with Promtail (or any similar log scraping agent) without any data loss. Now let's understand exactly how we configure log rotation in different platforms.
 
@@ -89,7 +89,7 @@ Here, the `create` mode works as explained in (2) above. The `create` mode is op
 
 ### Kubernetes
 
-[Kubernetes Service Discovery in Promtail]({{< relref "../scraping#kubernetes-discovery" >}}) also uses file-based scraping. Meaning, logs from your pods are stored on the nodes and Promtail scrapes the pod logs from the node files.
+[Kubernetes Service Discovery in Promtail]({{< relref "../scraping#kubernetes-discovery" >}}) also uses file-based scraping. Meaning, logs from your pods are stored on the nodes and Promtail scrapes the Pod logs from the node files.
 
 You can [configure](https://kubernetes.io/docs/concepts/cluster-administration/logging/#log-rotation) the `kubelet` process running on each node to manage log rotation via two configuration settings.
 
@@ -143,7 +143,7 @@ Example `/etc/docker/daemon.json`:
 If neither `kubelet` nor `CRI` is configured for rotating logs, then the `logrotate` utility can be used on the Kubernetes nodes as explained previously.
 
 {{% admonition type="note" %}}
-We recommend using kubelet for log rotation.
+We recommend using `kubelet` for log rotation.
 {{% /admonition %}}
 
 ## Configure Promtail

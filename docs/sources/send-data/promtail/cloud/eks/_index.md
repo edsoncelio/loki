@@ -18,7 +18,7 @@ After this tutorial you will able to query all your logs in one place using Graf
 Before we start you'll need:
 
 - The [AWS CLI][aws cli] configured (run `aws configure`).
-- [kubectl][kubectl] and [eksctl][eksctl] installed.
+- [`kubectl`][kubectl] and [eksctl][eksctl] installed.
 - A Grafana instance with a Grafana Loki data source already configured, you can use [GrafanaCloud][GrafanaCloud] free trial.
 
 For the sake of simplicity we'll use a [GrafanaCloud][GrafanaCloud] Loki and Grafana instances, you can get an free account for this tutorial on our [website][GrafanaCloud], but all the steps are the same if you're running your own Open Source version of Loki and Grafana instances.
@@ -27,7 +27,7 @@ For the sake of simplicity we'll use a [GrafanaCloud][GrafanaCloud] Loki and Gra
 
 In this tutorial we'll use [eksctl][eksctl], a simple command line utility for creating and managing Kubernetes clusters on Amazon EKS. AWS requires creating many resources such as IAM roles, security groups and networks, by using `eksctl` all of this is simplified.
 
-> We're not going to use a Fargate cluster. Do note that if you want to use Fargate daemonset are not allowed, the only way to ship logs with EKS Fargate is to run a fluentd or fluentbit or Promtail as a sidecar and tee your logs into a file. For more information on how to do so, you can read this [blog post][blog ship log with fargate].
+> We're not going to use a Fargate cluster. Do note that if you want to use Fargate DaemonSet are not allowed, the only way to ship logs with EKS Fargate is to run a fluentd or fluentbit or Promtail as a sidecar and tee your logs into a file. For more information on how to do so, you can read this [blog post][blog ship log with fargate].
 
 
 ```bash
@@ -186,13 +186,13 @@ Now that we're ready we can update the Promtail deployment:
 helm upgrade  promtail loki/promtail -n monitoring -f values.yaml
 ```
 
-Let go back to Grafana and type in the query below to fetch all logs related to Volume from Kubelet:
+Let go back to Grafana and type in the query below to fetch all logs related to Volume from `kubelet`:
 
 ```logql
 {unit="kubelet.service"} |= "Volume"
 ```
 
-Filter expressions are powerful in LogQL they help you scan through your logs, in this case it will filter out all your [kubelet][kubelet] logs not having the `Volume` word in it.
+Filter expressions are powerful in LogQL they help you scan through your logs, in this case it will filter out all your [`kubelet`][kubelet] logs not having the `Volume` word in it.
 
 The workflow is simple, you always select a set of labels matchers first, this way you reduce the data you're planing to scan.(such as an application, a namespace or even a cluster).
 Then you can apply a set of filters to find the logs you want.
@@ -252,7 +252,7 @@ For more information about the `eventrouter` make sure to read our [blog post][b
 
 That's it ! You can download the final and complete [`values.yaml`][final config] if you need.
 
-Your EKS cluster is now ready, all your current and future application logs will now be shipped to Loki with Promtail. You will also able to [explore][explore] [kubelet][kubelet] and Kubernetes events. Since we've used a DaemonSet you'll automatically grab all your node logs as you scale them.
+Your EKS cluster is now ready, all your current and future application logs will now be shipped to Loki with Promtail. You will also able to [explore][explore] [`kubelet`][kubelet] and Kubernetes events. Since we've used a DaemonSet you'll automatically grab all your node logs as you scale them.
 
 If you want to push this further you can check out [Joe's blog post][blog annotations] on how to automatically create Grafana dashboard annotations with Loki when you deploy new Kubernetes applications.
 

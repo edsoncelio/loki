@@ -56,11 +56,11 @@ config:
 Finally, Promtail can be deployed with:
 
 ```bash
-# The default helm configuration deploys promtail as a daemonSet (recommended)
+# The default helm configuration deploys promtail as a DaemonSet (recommended)
 helm upgrade --values values.yaml --install promtail grafana/promtail
 ```
 
-## Install as Kubernetes daemonSet (recommended)
+## Install as Kubernetes DaemonSet (recommended)
 
 A `DaemonSet` will deploy Promtail on every node within a Kubernetes cluster.
 

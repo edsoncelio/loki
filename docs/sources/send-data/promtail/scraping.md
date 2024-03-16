@@ -75,7 +75,7 @@ the `scrape_configs` section in the config YAML. The syntax is identical to what
 [Prometheus uses](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config).
 
 `scrape_configs` contains one or more entries which are executed for each
-discovered target (i.e., each container in each new pod running in the
+discovered target (i.e., each container in each new Pod running in the
 instance):
 
 ```
@@ -102,15 +102,15 @@ There are different types of labels present in Promtail:
   [Relabeling](#relabeling) for more information.
 
 - Labels starting with `__meta_kubernetes_pod_label_*` are "meta labels" which
-  are generated based on your Kubernetes pod's labels.
+  are generated based on your Kubernetes Pod's labels.
 
-  For example, if your Kubernetes pod has a label `name` set to `foobar`, then
+  For example, if your Kubernetes Pod has a label `name` set to `foobar`, then
   the `scrape_configs` section will receive an internal label
   `__meta_kubernetes_pod_label_name` with a value set to `foobar`.
 
 - Other labels starting with `__meta_kubernetes_*` exist based on other
-  Kubernetes metadata, such as the namespace of the pod
-  (`__meta_kubernetes_namespace`) or the name of the container inside the pod
+  Kubernetes metadata, such as the namespace of the Pod
+  (`__meta_kubernetes_namespace`) or the name of the container inside the Pod
   (`__meta_kubernetes_pod_container_name`). Refer to
   [the Prometheus docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config)
   for the full list of Kubernetes meta labels.
@@ -501,7 +501,7 @@ value or transformed to a final external label, such as `__job__`.
     - __meta_kubernetes_namespace
     target_label: namespace
 ```
-- Persist all Kubernetes pod labels by mapping them, like by mapping
+- Persist all Kubernetes Pod labels by mapping them, like by mapping
     `__meta_kube__meta_kubernetes_pod_label_foo` to `foo`.
 ```yaml
   - action: labelmap
